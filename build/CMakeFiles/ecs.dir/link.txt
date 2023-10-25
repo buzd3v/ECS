@@ -1,0 +1,1 @@
+/usr/bin/g++ -g -rdynamic CMakeFiles/ecs.dir/src/ecs.cpp.o -o ecs 

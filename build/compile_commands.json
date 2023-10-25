@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/buzdev/Desktop/ECS/build",
+  "command": "/usr/bin/g++  -I/home/buzdev/Desktop/ECS/include -g -std=gnu++17 -o CMakeFiles/ecs.dir/src/ecs.cpp.o -c /home/buzdev/Desktop/ECS/src/ecs.cpp",
+  "file": "/home/buzdev/Desktop/ECS/src/ecs.cpp"
+}
+]

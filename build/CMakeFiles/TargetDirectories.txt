@@ -1,0 +1,3 @@
+/home/buzdev/Desktop/ECS/build/CMakeFiles/ecs.dir
+/home/buzdev/Desktop/ECS/build/CMakeFiles/edit_cache.dir
+/home/buzdev/Desktop/ECS/build/CMakeFiles/rebuild_cache.dir

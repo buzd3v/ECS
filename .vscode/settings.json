@@ -8,7 +8,11 @@
         "**/Thumbs.db": true,
         "**/*.cppWithExt": true,
     },
+    "clangd.arguments": [
+        "--enable-config"
+    ],
     "clangd.fallbackFlags": [
-        "-std=c++17",
+        "--target=x86_64-w64-windows-gnu",
+        "-I${workspaceFolder}"
     ]
 }

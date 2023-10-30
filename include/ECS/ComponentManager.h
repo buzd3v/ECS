@@ -1,6 +1,9 @@
-#include "ecs.h"
+#pragma once
+#include "global.h"
 #include <array>
+#include <cassert>
 #include <cstddef>
+#include <memory>
 #include <unordered_map>
 #include <vcruntime.h>
 
@@ -70,5 +73,65 @@ template <typename T> class ComponentArray : public IComponentArray
     std::unordered_map<size_t, entity> m_IndexToEnttMap;
 
     size_t m_Size = 0;
+};
+
+class ComponentManager
+{
+  public:
+    template <typename T> void RegisterComponent()
+    {
+        auto typeName = typeid(T).name();
+        assert(m_ComponentTypes.find(typeName) == m_ComponentTypes.end() && "Registering exist component");
+
+        m_ComponentTypes.insert({typeName, m_NextComponentType});
+        m_ComponentArrays.insert({typeName, std::make_shared<ComponentArray<T>>()});
+
+        m_NextComponentType++;
+    }
+
+    template <typename T> componentType GetComponentType()
+    {
+        auto typeName = typeid(T).name();
+        assert(m_ComponentTypes.find(typeName) != m_ComponentTypes.end() && "Component not registered");
+
+        return m_ComponentTypes[typeName];
+    }
+
+    template <typename T> void AddComponent(entity id, T component)
+    {
+        GetComponentArray<T>()->InsertData(id, component);
+    }
+    template <typename T> void RemoveComponent(entity id)
+    {
+        GetComponentArray<T>()->RemoveData(id);
+    }
+    template <typename T> T &GetComponent(entity id)
+    {
+        return GetComponentArray<T>()->GetData(id);
+    }
+
+    void EntityDestroyed(entity id)
+    {
+        for (auto const &pair : m_ComponentArrays)
+        {
+            auto const &component = pair.second;
+            component->EntityDestroyed(id);
+        }
+    }
+
+  private:
+    std::unordered_map<const char *, componentType> m_ComponentTypes;
+    std::unordered_map<const char *, std::shared_ptr<IComponentArray>> m_ComponentArrays;
+
+    componentType m_NextComponentType{};
+
+    template <typename T> std::shared_ptr<ComponentArray<T>> GetComponentArray()
+    {
+        auto typeName = typeid(T).name();
+        assert(m_ComponentTypes.find(typeName) != m_ComponentTypes.end() &&
+               "The components seem do not being registered before");
+
+        return std::dynamic_pointer_cast<ComponentArray<T>>(m_ComponentArrays[typeName]); // using for RTTI
+    }
 };
 } // namespace ecs

@@ -1,7 +1,8 @@
+#pragma once
+
 #include <bitset>
 #include <cstdint>
 #include <iostream>
-
 
 namespace ecs
 {

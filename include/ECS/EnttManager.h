@@ -1,4 +1,4 @@
-#include "ecs.h"
+#include "global.h"
 #include <array>
 #include <cassert>
 #include <cstdint>
@@ -32,7 +32,7 @@ class EnttManager
     {
     }
 
-    void SetSignature(entity id, signature sign)
+    void SetSignature(entity id, const signature &sign)
     {
         assert(id < MAX_ENTT && "Entity out of range");
 

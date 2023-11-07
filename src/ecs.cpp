@@ -66,42 +66,42 @@ void passSomething(int &&x)
 
 int main()
 {
-    // g_Ecs.Init();
-    // g_Ecs.RegisterComponent<RigidBody>();
-    // g_Ecs.RegisterComponent<Transform>();
+    g_Ecs.Init();
+    g_Ecs.RegisterComponent<RigidBody>();
+    g_Ecs.RegisterComponent<Transform>();
 
-    // auto renderSys = g_Ecs.RegisterSystem<RenderSystem>();
+    auto renderSys = g_Ecs.RegisterSystem<RenderSystem>();
 
-    // ecs::signature sign;
-    // sign.set(g_Ecs.GetComponentType<RigidBody>());
-    // sign.set(g_Ecs.GetComponentType<Transform>());
+    ecs::signature sign;
+    sign.set(g_Ecs.GetComponentType<RigidBody>());
+    sign.set(g_Ecs.GetComponentType<Transform>());
 
-    // g_Ecs.SetSystemSignature<RenderSystem>(sign);
+    g_Ecs.SetSystemSignature<RenderSystem>(sign);
 
-    // std::vector<ecs::entity> v(10);
+    std::vector<ecs::entity> v(10);
 
-    // std::default_random_engine generator;
-    // std::uniform_real_distribution<float> randPosition(-100.0f, 100.0f);
-    // std::uniform_real_distribution<float> randRotation(0.0f, 3.0f);
-    // std::uniform_real_distribution<float> randScale(3.0f, 5.0f);
-    // std::uniform_real_distribution<float> randGravity(-10.0f, -1.0f);
+    std::default_random_engine generator;
+    std::uniform_real_distribution<float> randPosition(-100.0f, 100.0f);
+    std::uniform_real_distribution<float> randRotation(0.0f, 3.0f);
+    std::uniform_real_distribution<float> randScale(3.0f, 5.0f);
+    std::uniform_real_distribution<float> randGravity(-10.0f, -1.0f);
 
-    // for (auto &id : v)
-    // {
-    //     id = g_Ecs.CreateEntity();
-    //     g_Ecs.AddComponentToEntity<RigidBody>(id, {randGravity(generator), randPosition(generator)});
-    //     g_Ecs.AddComponentToEntity<Transform>(id, {1, 2, 3});
-    // }
-    // float dt = 0;
+    for (auto &id : v)
+    {
+        id = g_Ecs.CreateEntity();
+        g_Ecs.AddComponentToEntity<RigidBody>(id, {randGravity(generator), randPosition(generator)});
+        g_Ecs.AddComponentToEntity<Transform>(id, {1, 2, 3});
+    }
+    float dt = 0;
 
-    // while (true)
-    // {
-    //     auto startTime = std::chrono::high_resolution_clock::now();
+    while (true)
+    {
+        auto startTime = std::chrono::high_resolution_clock::now();
 
-    //     renderSys->Update(dt);
+        renderSys->Update(dt);
 
-    //     auto stopTime = std::chrono::high_resolution_clock::now();
+        auto stopTime = std::chrono::high_resolution_clock::now();
 
-    //     dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
-    // }
+        dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
+    }
 }

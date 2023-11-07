@@ -5,7 +5,6 @@
 #include <cstddef>
 #include <memory>
 #include <unordered_map>
-#include <vcruntime.h>
 
 namespace ecs
 {

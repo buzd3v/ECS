@@ -5,6 +5,7 @@
 #include <ostream>
 #include <random>
 #include <stdio.h>
+#include <vector>
 
 struct Vec3
 {
@@ -66,6 +67,7 @@ void passSomething(int &&x)
 
 int main()
 {
+
     g_Ecs.Init();
     g_Ecs.RegisterComponent<RigidBody>();
     g_Ecs.RegisterComponent<Transform>();
